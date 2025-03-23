@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+- Always respond in Chinese (中文).  
+- Code comments must always be in English.  
+- Use Australian English for all English text.  
