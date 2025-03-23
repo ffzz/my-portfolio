@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimising React Performance with Memoisation | Fangzheng (Ben) Chen's Technical Blog</title>
+    <meta name="description"
+        content="Dive deep into optimising React application performance with memoisation techniques (React.memo, useMemo and useCallback) to reduce unnecessary renders and enhance user experience.">
+    <meta name="keywords"
+        content="React Performance, Memoisation, React.memo, useMemo, useCallback, Performance Optimisation, Frontend Development, Canberra Developer">
+    <meta name="author" content="Fangzheng (Ben) Chen">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Optimising React Performance with Memoisation | Technical Blog">
+    <meta property="og:description"
+        content="How to use memoisation techniques to optimise React application performance, reduce unnecessary renders and enhance user experience.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.benchen.dev/blog-detail.html">
+    <meta property="og:image" content="https://www.benchen.dev/images/react-performance-preview.jpg">
+    <meta property="article:published_time" content="2023-04-15T08:00:00+00:00">
+    <meta property="article:author" content="Fangzheng (Ben) Chen">
+    <meta property="article:section" content="Web Development">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Performance Optimisation">
+    <link rel="canonical" href="https://www.benchen.dev/blog-detail.html">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0f0f0f;
+            --secondary-dark: #1a1a1a;
+            --text-dark: #f5f5f5;
+            --accent-dark: #3b82f6;
+            --primary-light: #f5f5f5;
+            --secondary-light: #e5e5e5;
+            --text-light: #171717;
+            --accent-light: #2563eb;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark {
+            background-color: var(--primary-dark);
+            color: var(--text-dark);
+        }
+
+        .light {
+            background-color: var(--primary-light);
+            color: var(--text-light);
+        }
+
+        .navbar-dark {
+            background-color: var(--secondary-dark);
+        }
+
+        .navbar-light {
+            background-color: var(--secondary-light);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-content h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+
+        .blog-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tag {
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            transform: scale(1.05);
+        }
+
+        .code-block {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-block pre {
+            padding: 1.5rem;
+            color: #e2e8f0;
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+
+        .dark .code-block {
+            background-color: #1e293b;
+        }
+
+        .light .code-block {
+            background-color: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        .light .code-block pre {
+            color: #334155;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent-dark);
+            padding-left: 1rem;
+            font-style: italic;
+            margin: 1.5rem 0;
+        }
+
+        .dark blockquote {
+            background-color: rgba(30, 41, 59, 0.5);
+            color: #e2e8f0;
+        }
+
+        .light blockquote {
+            background-color: rgba(241, 245, 249, 0.5);
+            color: #334155;
+        }
+
+        /* Light mode card styles */
+        .light .bg-gray-800 {
+            background-color: var(--secondary-light);
+            color: var(--text-light);
+        }
+
+        .light .border-gray-700 {
+            border-color: #d1d5db;
+        }
+
+        .light .border-gray-800 {
+            border-color: #d1d5db;
+        }
+
+        .light .text-gray-300 {
+            color: #374151;
+        }
+
+        .light .text-gray-400 {
+            color: #4b5563;
+        }
+
+        /* Footer浅色模式样式 */
+        .light .bg-black {
+            background-color: #f8fafc;
+        }
+
+        .light .hover\:text-white:hover {
+            color: #1e3a8a;
+        }
+
+        .light footer {
+            border-color: #e2e8f0;
+        }
+
+        .light footer .border-t {
+            border-color: #e2e8f0;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            .blog-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .blog-content h3 {
+                font-size: 1.25rem;
+            }
+
+            .blog-content pre {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav id="navbar"
+        class="navbar-dark sticky top-0 z-50 py-4 px-6 border-b border-gray-800 backdrop-filter backdrop-blur-lg bg-opacity-80">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">
+                <span class="text-blue-500">[</span>Ben_Chen<span class="text-blue-500">]</span>
+            </a>
+            <div class="flex items-center space-x-1 md:space-x-6">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="hover:text-blue-500 transition-colors">Home</a>
+                    <a href="about.html" class="hover:text-blue-500 transition-colors">About</a>
+                    <a href="projects.html" class="hover:text-blue-500 transition-colors">Projects</a>
+                    <a href="blog.html"
+                        class="hover:text-blue-500 transition-colors border-b-2 border-blue-500">Blog</a>
+                    <a href="resume.html" class="hover:text-blue-500 transition-colors">Resume</a>
+                    <a href="contact.html" class="hover:text-blue-500 transition-colors">Contact</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="navbar-dark hidden md:hidden w-full mt-4 pb-4 px-6">
+            <div class="flex flex-col space-y-4">
+                <a href="index.html" class="hover:text-blue-500 transition-colors pl-2">Home</a>
+                <a href="about.html" class="hover:text-blue-500 transition-colors pl-2">About</a>
+                <a href="projects.html" class="hover:text-blue-500 transition-colors pl-2">Projects</a>
+                <a href="blog.html"
+                    class="hover:text-blue-500 transition-colors border-l-4 border-blue-500 pl-2">Blog</a>
+                <a href="resume.html" class="hover:text-blue-500 transition-colors pl-2">Resume</a>
+                <a href="contact.html" class="hover:text-blue-500 transition-colors pl-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Article Header -->
+    <header class="py-16 px-6 bg-gradient-to-r from-gray-900 to-black">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="tag bg-blue-900 text-blue-300">React</span>
+                <span class="tag bg-purple-900 text-purple-300">Performance</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Optimising React Performance with Memoisation
+            </h1>
+            <div class="flex flex-wrap items-center text-gray-400 mb-8">
+                <div class="flex items-center mr-6 mb-2">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000"
+                        alt="Ben Chen" class="w-8 h-8 rounded-full mr-2">
+                    <span>Fangzheng (Ben) Chen</span>
+                </div>
+                <div class="flex items-center mr-6 mb-2">
+                    <i class="far fa-calendar-alt mr-2"></i>
+                    <span>April 15, 2023</span>
+                </div>
+                <div class="flex items-center mb-2">
+                    <i class="far fa-clock mr-2"></i>
+                    <span>8 min read</span>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?auto=format&fit=crop&q=80&w=1470"
+                alt="React Performance Optimization" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg">
+        </div>
+    </header>
+
+    <!-- Blog Article Content -->
+    <section class="py-12 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-12 gap-8">
+                <!-- Main Content -->
+                <div class="md:col-span-8">
+                    <article class="bg-gray-800 border border-gray-700 rounded-lg p-8 shadow-lg fade-in">
+                        <div class="blog-content text-gray-300">
+                            <p>
+                                Performance optimisation is a critical aspect of building React applications that
+                                provide a smooth user experience. One of the most powerful techniques in a React
+                                developer's toolkit is memoisation.
+                            </p>
+
+                            <p>
+                                Memoisation is a programming technique that stores the results of expensive function
+                                calls and returns the cached result when the same inputs occur again. In React, this can
+                                significantly improve rendering performance.
+                            </p>
+
+                            <h2>Using React.memo for Component Optimization</h2>
+
+                            <p>
+                                <code>React.memo</code> is a higher-order component that memoises the result of a
+                                component render. It prevents unnecessary re-renders by performing a shallow comparison
+                                of props:
+                            </p>
+
+                            <div class="code-block">
+                                <pre><code>import React from 'react';
+
+const MyComponent = (props) => {
+  /* Component logic */
+  return (
+    &lt;div&gt;
+      {/* Component JSX */}
+    &lt;/div&gt;
+  );
+};
+
+// Wrap with React.memo to memoise the component
+export default React.memo(MyComponent);</code></pre>
+                            </div>
+
+                            <p>
+                                This simple addition can drastically reduce re-renders, especially for components that
+                                receive the same props frequently or are part of a large list.
+                            </p>
+
+                            <h2>Optimising with useMemo and useCallback</h2>
+
+                            <p>
+                                For expensive calculations within components, <code>useMemo</code> can cache the results
+                                based on dependencies:
+                            </p>
+
+                            <div class="code-block">
+                                <pre><code>import React, { useMemo } from 'react';
+
+function MyComponent({ data }) {
+  // This calculation will only run when data changes
+  const processedData = useMemo(() => {
+    return expensiveCalculation(data);
+  }, [data]);
+
+  return (
+    &lt;div&gt;
+      {/* Use processedData in rendering */}
+    &lt;/div&gt;
+  );
+}</code></pre>
+                            </div>
+
+                            <p>
+                                Similarly, <code>useCallback</code> memoises functions, preventing them from being
+                                recreated on each render:
+                            </p>
+
+                            <div class="code-block">
+                                <pre><code>import React, { useCallback } from 'react';
+
+function ParentComponent() {
+  const handleClick = useCallback(() => {
+    // Event handler logic
+  }, []); // Empty dependency array means this function is created once
+
+  return &lt;ChildComponent onClick={handleClick} /&gt;;
+}</code></pre>
+                            </div>
+
+                            <blockquote class="text-gray-300 p-4 rounded-lg">
+                                Remember that memoisation itself has a cost. Only apply these techniques where they
+                                provide measurable benefits to your application's performance.
+                            </blockquote>
+
+                            <h2>Real-world Performance Improvements</h2>
+
+                            <p>
+                                In a recent project, I implemented these techniques in a dashboard application that was
+                                experiencing lag when displaying large data sets. The results were impressive:
+                            </p>
+
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 mb-6 pl-4">
+                                <li>Initial render time reduced by 42%</li>
+                                <li>Update renders improved by 65%</li>
+                                <li>Smooth scrolling through 1000+ list items</li>
+                                <li>Eliminated jank during filter operations</li>
+                            </ul>
+
+                            <p>
+                                The key was strategically applying memoisation at the right level of the component tree
+                                to prevent cascading re-renders.
+                            </p>
+
+                            <h2>When to Use Each Technique</h2>
+
+                            <p>
+                                Different memoisation techniques are appropriate for different scenarios:
+                            </p>
+
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 mb-6 pl-4">
+                                <li><strong>React.memo</strong>: Best for pure functional components that render the
+                                    same result given the same props.</li>
+                                <li><strong>useMemo</strong>: Ideal for expensive calculations or derived values that
+                                    depend on specific variables.</li>
+                                <li><strong>useCallback</strong>: Perfect for event handlers that are passed to
+                                    optimized child components.</li>
+                            </ul>
+
+                            <p>
+                                The decision to apply memoisation should be based on performance measurements, not
+                                assumptions. Use React DevTools' Profiler to identify actual performance bottlenecks.
+                            </p>
+
+                            <h2>Common Pitfalls</h2>
+
+                            <p>
+                                While memoisation is powerful, there are common mistakes to avoid:
+                            </p>
+
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 mb-6 pl-4">
+                                <li>Over-optimisation: Adding memoisation everywhere without measuring</li>
+                                <li>Incorrect dependency arrays: Missing dependencies can lead to stale data</li>
+                                <li>Complex equality checks: Custom equality functions can be more expensive than
+                                    re-renders</li>
+                                <li>Creating new objects or functions in render: This defeats the purpose of memoisation
+                                </li>
+                            </ul>
+
+                            <h2>Conclusion</h2>
+
+                            <p>
+                                While memoisation is powerful, it's important to use it judiciously. Always measure
+                                performance before and after to ensure you're actually seeing benefits. Start by
+                                optimising the components that render frequently or process large amounts of data.
+                            </p>
+
+                            <p>
+                                In the next article, we'll explore advanced React patterns that can further enhance your
+                                application's performance and maintainability.
+                            </p>
+                        </div>
+
+                        <!-- Article Actions -->
+                        <div class="mt-8 pt-8 border-t border-gray-700">
+                            <div class="flex flex-wrap justify-between items-center">
+                                <div class="flex space-x-4 mb-4 md:mb-0">
+                                    <button
+                                        class="flex items-center text-gray-400 hover:text-blue-500 transition-colors">
+                                        <i class="far fa-thumbs-up mr-2"></i>
+                                        <span>Like</span>
+                                    </button>
+                                    <button
+                                        class="flex items-center text-gray-400 hover:text-blue-500 transition-colors">
+                                        <i class="far fa-comment mr-2"></i>
+                                        <span>Comment</span>
+                                    </button>
+                                    <button
+                                        class="flex items-center text-gray-400 hover:text-blue-500 transition-colors">
+                                        <i class="far fa-bookmark mr-2"></i>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors text-lg">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors text-lg">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors text-lg">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Author Bio -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 mt-8 fade-in"
+                        style="animation-delay: 0.2s;">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000"
+                                alt="Ben Chen" class="w-20 h-20 rounded-full object-cover mb-4 sm:mb-0 sm:mr-6">
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">About the Author</h3>
+                                <p class="text-gray-300 mb-4">
+                                    Fangzheng (Ben) Chen is a Full-Stack Developer with expertise in React, Laravel, and
+                                    modern web technologies. He writes about web development, performance optimisation,
+                                    and career growth in tech.
+                                </p>
+                                <a href="about.html"
+                                    class="text-blue-500 hover:text-blue-400 transition-colors flex items-center">
+                                    More About Me
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Related Articles -->
+                    <div class="mt-12">
+                        <h3 class="text-2xl font-bold mb-6">Related Articles</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <a href="#"
+                                class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow fade-in"
+                                style="animation-delay: 0.3s;">
+                                <img src="https://images.unsplash.com/photo-1555952517-2e8e729e0b44?auto=format&fit=crop&q=80&w=1470"
+                                    alt="React State Management" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <div class="text-sm text-gray-400 mb-2">January 10, 2023</div>
+                                    <h4 class="font-bold mb-2">Modern State Management in React: Beyond Redux</h4>
+                                    <p class="text-gray-400 text-sm">Comparing modern state management solutions
+                                        including Context API, React Query, Zustand, and Recoil...</p>
+                                </div>
+                            </a>
+                            <a href="#"
+                                class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow fade-in"
+                                style="animation-delay: 0.4s;">
+                                <img src="https://images.unsplash.com/photo-1599507593499-a3f7d7d97667?auto=format&fit=crop&q=80&w=1470"
+                                    alt="Laravel Application" class="w-full h-40 object-cover">
+                                <div class="p-4">
+                                    <div class="text-sm text-gray-400 mb-2">March 28, 2023</div>
+                                    <h4 class="font-bold mb-2">Building Scalable Backend Systems with Laravel</h4>
+                                    <p class="text-gray-400 text-sm">Explore architecturing large-scale applications
+                                        with Laravel, focusing on best practices for maintainability...</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="md:col-span-4 space-y-8">
+                    <!-- Author Card -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 fade-in"
+                        style="animation-delay: 0.2s;">
+                        <h3 class="text-xl font-bold mb-4">About the Author</h3>
+                        <div class="flex items-center mb-4">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000"
+                                alt="Ben Chen" class="w-16 h-16 rounded-full object-cover mr-4">
+                            <div>
+                                <div class="font-bold">Fangzheng (Ben) Chen</div>
+                                <div class="text-gray-400">Full-Stack Developer</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            I write about web development, performance optimisation, and career growth in tech. Follow
+                            along for practical insights from my experience.
+                        </p>
+                        <a href="about.html"
+                            class="text-blue-500 hover:text-blue-400 transition-colors flex items-center">
+                            More About Me
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+
+                    <!-- Table of Contents -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 sticky top-24 fade-in"
+                        style="animation-delay: 0.3s;">
+                        <h3 class="text-xl font-bold mb-4">Table of Contents</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-blue-500 hover:text-blue-400 transition-colors">Introduction to
+                                    Memoisation</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Using
+                                    React.memo</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Optimising with
+                                    useMemo and useCallback</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Real-world
+                                    Performance Improvements</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">When to Use Each
+                                    Technique</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Common
+                                    Pitfalls</a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">Conclusion</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Popular Tags -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 fade-in"
+                        style="animation-delay: 0.4s;">
+                        <h3 class="text-xl font-bold mb-4">Popular Tags</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#"
+                                class="tag bg-blue-900 text-blue-300 hover:bg-blue-800 transition-colors">React</a>
+                            <a href="#"
+                                class="tag bg-red-900 text-red-300 hover:bg-red-800 transition-colors">Laravel</a>
+                            <a href="#" class="tag bg-green-900 text-green-300 hover:bg-green-800 transition-colors">AI
+                                & ML</a>
+                            <a href="#"
+                                class="tag bg-purple-900 text-purple-300 hover:bg-purple-800 transition-colors">Performance</a>
+                            <a href="#"
+                                class="tag bg-yellow-900 text-yellow-300 hover:bg-yellow-800 transition-colors">JavaScript</a>
+                            <a href="#" class="tag bg-pink-900 text-pink-300 hover:bg-pink-800 transition-colors">Career
+                                Growth</a>
+                            <a href="#"
+                                class="tag bg-indigo-900 text-indigo-300 hover:bg-indigo-800 transition-colors">TypeScript</a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Signup -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 fade-in"
+                        style="animation-delay: 0.5s;">
+                        <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                        <p class="text-gray-300 mb-4">Subscribe for updates on new articles and tech insights.</p>
+                        <form class="space-y-4">
+                            <div>
+                                <input type="email" placeholder="Your email address"
+                                    class="w-full p-3 border border-gray-700 bg-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <button type="submit"
+                                class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-6 bg-gradient-to-b from-gray-900 to-black">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-6">Enjoyed this article? Share your thoughts!</h2>
+            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Leave a comment below or reach out directly. I'd love to
+                hear your feedback and experiences with React optimisation.</p>
+            <a href="contact.html"
+                class="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow-lg hover:shadow-xl hover-lift">
+                Get In Touch
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 px-6 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="mb-8 md:mb-0">
+                    <div class="text-2xl font-bold mb-4">
+                        <span class="text-blue-500">[</span>Ben_Chen<span class="text-blue-500">]</span>
+                    </div>
+                    <p class="text-gray-400 max-w-md">Full-Stack Developer specializing in web application development
+                        with a focus on quality and user experience.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://github.com/ffzz" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ben-fz-chen/" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:cfangzheng@gmail.com"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-500 mb-4 md:mb-0">
+                    &copy; 2023 Fangzheng (Ben) Chen. All rights reserved.
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-400 hover:text-blue-500 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-400 hover:text-blue-500 transition-colors">About</a>
+                    <a href="projects.html" class="text-gray-400 hover:text-blue-500 transition-colors">Projects</a>
+                    <a href="blog.html" class="text-gray-400 hover:text-blue-500 transition-colors">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        const body = document.body;
+        const navbar = document.getElementById('navbar');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Check system preference or saved preference
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                return savedTheme;
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        // Apply theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark');
+                body.classList.remove('light');
+                navbar.classList.add('navbar-dark');
+                navbar.classList.remove('navbar-light');
+                mobileMenu.classList.add('navbar-dark');
+                mobileMenu.classList.remove('navbar-light');
+                icon.classList.add('fa-moon');
+                icon.classList.remove('fa-sun');
+            } else {
+                body.classList.add('light');
+                body.classList.remove('dark');
+                navbar.classList.add('navbar-light');
+                navbar.classList.remove('navbar-dark');
+                mobileMenu.classList.add('navbar-light');
+                mobileMenu.classList.remove('navbar-dark');
+                icon.classList.add('fa-sun');
+                icon.classList.remove('fa-moon');
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Initialize theme
+        applyTheme(getPreferredTheme());
+
+        // Theme toggle click event
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in table of contents based on scroll position
+        window.addEventListener('scroll', function () {
+            // Implementation would go here in a real application
+        });
+    </script>
+</body>
+
+</html>

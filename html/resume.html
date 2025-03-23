@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume | Fangzheng (Ben) Chen - Full-Stack Developer</title>
+    <meta name="description"
+        content="Browse Fangzheng (Ben) Chen's professional resume to learn about his skills, experience and projects as a Full-Stack Developer. Expert in React, Node.js and Laravel development with extensive Web application development experience." />
+    <meta name="keywords"
+        content="Resume, Full-Stack Developer, Web Development, React, Node.js, Laravel, Professional Experience, Canberra Developer" />
+    <meta name="author" content="Fangzheng (Ben) Chen" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Resume | Fangzheng (Ben) Chen" />
+    <meta property="og:description"
+        content="Browse Fangzheng (Ben) Chen's professional resume to learn about his skills, experience and projects as a Full-Stack Developer." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.benchen.dev/resume.html" />
+    <meta property="og:image" content="https://www.benchen.dev/images/resume-preview.jpg" />
+    <link rel="canonical" href="https://www.benchen.dev/resume.html" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary-dark: #0f0f0f;
+            --secondary-dark: #1a1a1a;
+            --text-dark: #f5f5f5;
+            --accent-dark: #3b82f6;
+            --primary-light: #f5f5f5;
+            --secondary-light: #e5e5e5;
+            --text-light: #171717;
+            --accent-light: #2563eb;
+        }
+
+        body {
+            font-family: "JetBrains Mono", monospace;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark {
+            background-color: var(--primary-dark);
+            color: var(--text-dark);
+        }
+
+        .light {
+            background-color: var(--primary-light);
+            color: var(--text-light);
+        }
+
+        .navbar-dark {
+            background-color: var(--secondary-dark);
+        }
+
+        .navbar-light {
+            background-color: var(--secondary-light);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #1e293b;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .light .skill-bar {
+            background-color: #e2e8f0;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background-color: var(--accent-dark);
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: width 1.5s ease;
+        }
+
+        .resume-section {
+            border-left: 2px solid var(--accent-dark);
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background-color: white;
+                color: black;
+            }
+
+            .print-break-avoid {
+                break-inside: avoid;
+            }
+        }
+
+        /* Light mode styles */
+        .light .bg-gray-800 {
+            background-color: var(--secondary-light);
+            color: var(--text-light);
+        }
+
+        .light .border-gray-700,
+        .light .border-gray-800 {
+            border-color: #d1d5db;
+        }
+
+        .light .text-gray-300 {
+            color: #374151;
+        }
+
+        .light .text-gray-400 {
+            color: #4b5563;
+        }
+
+        .light .bg-gray-900,
+        .light .from-gray-900 {
+            background-color: #e5e7eb;
+        }
+
+        .light .to-gray-800,
+        .light .to-black {
+            background-color: #f3f4f6;
+        }
+
+        .light .bg-gradient-to-r,
+        .light .bg-gradient-to-b {
+            background-image: linear-gradient(to right, #e5e7eb, #f3f4f6);
+        }
+
+        .light .hover\:bg-gray-800:hover {
+            background-color: #f3f4f6;
+        }
+
+        /* Light mode styles for footer */
+        .light .bg-black {
+            background-color: #f8fafc;
+        }
+
+        .light .hover\:text-white:hover {
+            color: #1e3a8a;
+        }
+
+        .light footer {
+            border-color: #e2e8f0;
+        }
+
+        .light footer .border-t {
+            border-color: #e2e8f0;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            .resume-title {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            /* 修复技能条对齐问题 */
+            .skill-container {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 1rem;
+            }
+
+            .skill-name {
+                width: 100%;
+                margin-bottom: 0.25rem;
+                font-size: 0.875rem;
+            }
+
+            .skill-bar {
+                width: 100%;
+            }
+
+            /* 确保技能条和百分比不重叠 */
+            .skill-percent {
+                position: absolute;
+                right: 0;
+                top: -1.5rem;
+                font-size: 0.75rem;
+            }
+
+            .flex.justify-between {
+                position: relative;
+                padding-bottom: 0.5rem;
+            }
+
+            /* 调整技能名称的位置和样式 */
+            .skill-wrapper .flex.justify-between span:first-child {
+                width: 75%;
+                padding-right: 1rem;
+            }
+
+            /* 联系方式对齐 */
+            .contact-info {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .contact-info>div {
+                margin-bottom: 0.5rem;
+                width: 100%;
+                font-size: 0.875rem;
+            }
+
+            /* 适当缩小字体 */
+            .resume-content {
+                font-size: 0.875rem;
+            }
+
+            .resume-item-title {
+                font-size: 1rem;
+            }
+
+            .resume-section {
+                padding-left: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav id="navbar"
+        class="navbar-dark sticky top-0 z-50 py-4 px-6 border-b border-gray-800 backdrop-filter backdrop-blur-lg bg-opacity-80 no-print">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">
+                <span class="text-blue-500">[</span>Ben_Chen<span class="text-blue-500">]</span>
+            </a>
+            <div class="flex items-center space-x-1 md:space-x-6">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="hover:text-blue-500 transition-colors">Home</a>
+                    <a href="about.html" class="hover:text-blue-500 transition-colors">About</a>
+                    <a href="projects.html" class="hover:text-blue-500 transition-colors">Projects</a>
+                    <a href="blog.html" class="hover:text-blue-500 transition-colors">Blog</a>
+                    <a href="resume.html"
+                        class="hover:text-blue-500 transition-colors border-b-2 border-blue-500">Resume</a>
+                    <a href="contact.html" class="hover:text-blue-500 transition-colors">Contact</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="navbar-dark hidden md:hidden w-full mt-4 pb-4 px-6">
+            <div class="flex flex-col space-y-4">
+                <a href="index.html" class="hover:text-blue-500 transition-colors pl-2">Home</a>
+                <a href="about.html" class="hover:text-blue-500 transition-colors pl-2">About</a>
+                <a href="projects.html" class="hover:text-blue-500 transition-colors pl-2">Projects</a>
+                <a href="blog.html" class="hover:text-blue-500 transition-colors pl-2">Blog</a>
+                <a href="resume.html"
+                    class="hover:text-blue-500 transition-colors border-l-4 border-blue-500 pl-2">Resume</a>
+                <a href="contact.html" class="hover:text-blue-500 transition-colors pl-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Resume Header -->
+    <header class="py-20 px-6 bg-gradient-to-r from-gray-900 to-black text-center no-print">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold mb-4">Professional Resume</h1>
+            <div class="w-24 h-1 bg-blue-500 mx-auto mb-8"></div>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                A detailed overview of my professional experience, skills, and
+                qualifications.
+            </p>
+            <div class="mt-8 flex justify-center">
+                <button id="print-resume"
+                    class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors mr-4">
+                    <i class="fas fa-print mr-2"></i> Print Resume
+                </button>
+                <a href="resume.pdf" download
+                    class="inline-flex items-center px-6 py-3 border border-blue-500 text-blue-500 hover:bg-blue-900 hover:bg-opacity-20 rounded-md transition-colors">
+                    <i class="fas fa-download mr-2"></i> Download PDF
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Resume Content -->
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+            <div class="p-8 md:p-12">
+                <!-- Contact Information -->
+                <div class="flex flex-col md:flex-row justify-between items-start mb-10 pb-10 border-b border-gray-700">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2">Fangzheng (Ben) Chen</h1>
+                        <h2 class="text-xl text-blue-400 mb-4">Full-Stack Developer</h2>
+                        <p class="text-gray-300 max-w-xl">
+                            Passionate developer with 3+ years of experience building
+                            scalable web applications and innovative solutions. Specialized
+                            in React, Laravel, and AI integration.
+                        </p>
+                    </div>
+                    <div class="mt-6 md:mt-0 text-right">
+                        <div class="flex items-center justify-end mb-2">
+                            <i class="fas fa-envelope text-blue-400 mr-2"></i>
+                            <a href="mailto:cfangzheng@gmail.com"
+                                class="text-gray-300 hover:text-blue-400 transition-colors">cfangzheng@gmail.com</a>
+                        </div>
+                        <div class="flex items-center justify-end mb-2">
+                            <i class="fas fa-phone text-blue-400 mr-2"></i>
+                            <span class="text-gray-300">+61 4xx xxx xxx</span>
+                        </div>
+                        <div class="flex items-center justify-end mb-2">
+                            <i class="fas fa-map-marker-alt text-blue-400 mr-2"></i>
+                            <span class="text-gray-300">Canberra, Australia</span>
+                        </div>
+                        <div class="flex items-center justify-end mb-2">
+                            <i class="fab fa-linkedin text-blue-400 mr-2"></i>
+                            <a href="https://www.linkedin.com/in/ben-fz-chen/" target="_blank"
+                                class="text-gray-300 hover:text-blue-400 transition-colors">linkedin.com/in/ben-fz-chen</a>
+                        </div>
+                        <div class="flex items-center justify-end">
+                            <i class="fab fa-github text-blue-400 mr-2"></i>
+                            <a href="https://github.com/ffzz" target="_blank"
+                                class="text-gray-300 hover:text-blue-400 transition-colors">github.com/ffzz</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Summary -->
+                <div class="mb-10 pb-10 border-b border-gray-700 print-break-avoid">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-code text-blue-400 mr-3"></i>
+                        Technical Skills
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-4">
+                                Programming Languages & Frameworks
+                            </h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">
+                                        JavaScript/TypeScript</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">React/Vue.js</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">PHP/Laravel</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">Node.js</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">Python</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-4">Tools & Technologies</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">MySQL/PostgreSQL
+                                    </div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">Redis/MongoDB</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">Docker/AWS</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">Git/CI-CD</div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-center">
+                                    <div style="width: 12.5rem; min-width: 12.5rem; flex-shrink: 0;">AI Integration
+                                    </div>
+                                    <div class="flex-1 ml-4">
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Experience -->
+                <div class="mb-10 pb-10 border-b border-gray-700">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-briefcase text-blue-400 mr-3"></i>
+                        Professional Experience
+                    </h3>
+
+                    <!-- Job 1 -->
+                    <div class="mb-8 pl-6 resume-section print-break-avoid">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h4 class="text-lg font-semibold">Full-Stack Developer</h4>
+                            <div class="text-blue-400">May 2023 - Present</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-between mb-4">
+                            <div class="font-medium text-gray-300">OPF Consulting</div>
+                            <div class="text-gray-400">Canberra, Australia</div>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                            <li>
+                                Lead development of full-stack web applications using Laravel,
+                                React, and MySQL, resulting in 35% faster deployment times and
+                                enhanced user engagement.
+                            </li>
+                            <li>
+                                Implemented Redis caching and queue management systems that
+                                improved application performance by 42% and reduced server
+                                load during peak hours.
+                            </li>
+                            <li>
+                                Designed and integrated AI-powered chatbot solutions using
+                                ChatGPT API with custom workflows for enterprise clients,
+                                increasing customer support efficiency by 68%.
+                            </li>
+                            <li>
+                                Maintained and optimized 20+ WordPress sites, implementing
+                                security best practices and performance enhancements that
+                                reduced page load times by 40%.
+                            </li>
+                            <li>
+                                Collaborated with cross-functional teams to gather
+                                requirements, create technical specifications, and ensure
+                                timely project delivery.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Job 2 -->
+                    <div class="mb-8 pl-6 resume-section print-break-avoid">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h4 class="text-lg font-semibold">Frontend Developer</h4>
+                            <div class="text-blue-400">October 2022 - May 2023</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-between mb-4">
+                            <div class="font-medium text-gray-300">Prudential</div>
+                            <div class="text-gray-400">Shenzhen, China</div>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                            <li>
+                                Developed a React Native lifestyle application featuring
+                                location-based services, real-time streaming, and community
+                                features that attracted 50,000+ users within three months of
+                                launch.
+                            </li>
+                            <li>
+                                Integrated Google Maps API and implemented geolocation
+                                features to deliver personalized content based on user
+                                location.
+                            </li>
+                            <li>
+                                Collaborated with UI/UX designers to create intuitive
+                                interfaces that increased user engagement by 45% compared to
+                                previous versions.
+                            </li>
+                            <li>
+                                Implemented performance optimizations that reduced application
+                                load time by 30% and decreased memory usage by 25%.
+                            </li>
+                            <li>
+                                Conducted code reviews and mentored junior developers,
+                                improving team code quality standards and development
+                                practices.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Job 3 -->
+                    <div class="pl-6 resume-section print-break-avoid">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h4 class="text-lg font-semibold">Full-Stack Developer</h4>
+                            <div class="text-blue-400">November 2021 - October 2022</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-between mb-4">
+                            <div class="font-medium text-gray-300">Tencent</div>
+                            <div class="text-gray-400">Shenzhen, China</div>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                            <li>
+                                Led frontend development for a data marketing platform that
+                                increased client user engagement by 3X through data-driven
+                                personalization strategies.
+                            </li>
+                            <li>
+                                Built dynamic data visualization components using D3.js and
+                                React that transformed complex datasets into actionable
+                                insights for marketing teams.
+                            </li>
+                            <li>
+                                Developed RESTful APIs and microservices using Node.js and
+                                Express that processed and analyzed large volumes of user
+                                interaction data.
+                            </li>
+                            <li>
+                                Implemented A/B testing frameworks that enabled data-driven
+                                decision making and improved conversion rates by 28%.
+                            </li>
+                            <li>
+                                Collaborated with data science teams to integrate machine
+                                learning models for predictive user behavior analysis.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="mb-10 pb-10 border-b border-gray-700 print-break-avoid">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-graduation-cap text-blue-400 mr-3"></i>
+                        Education
+                    </h3>
+                    <div class="pl-6 resume-section">
+                        <div class="flex flex-col md:flex-row justify-between mb-2">
+                            <h4 class="text-lg font-semibold">
+                                Bachelor of Information Technology & Journalism (Dual Degree)
+                            </h4>
+                            <div class="text-blue-400">2017 - 2021</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-between mb-4">
+                            <div class="font-medium text-gray-300">
+                                University of Queensland
+                            </div>
+                            <div class="text-gray-400">Brisbane, Australia</div>
+                        </div>
+                        <ul class="list-disc list-inside space-y-1 text-gray-300 ml-4">
+                            <li>GPA: 6.2/7.0 (High Distinction)</li>
+                            <li>
+                                Relevant Coursework: Web Development, Database Management,
+                                Software Engineering, Data Structures & Algorithms, UI/UX
+                                Design
+                            </li>
+                            <li>
+                                Final Year Project: Developed an AI-powered content
+                                recommendation system that earned department recognition
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="mb-10 pb-10 border-b border-gray-700 print-break-avoid">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-certificate text-blue-400 mr-3"></i>
+                        Certifications
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-6">
+                        <div>
+                            <ul class="space-y-4 text-gray-300">
+                                <li>
+                                    <div class="font-semibold">
+                                        AWS Certified Developer – Associate
+                                    </div>
+                                    <div class="text-sm text-gray-400">
+                                        Amazon Web Services • 2023
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="font-semibold">Laravel Certification</div>
+                                    <div class="text-sm text-gray-400">Laravel • 2022</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-4 text-gray-300">
+                                <li>
+                                    <div class="font-semibold">
+                                        React Developer Certification
+                                    </div>
+                                    <div class="text-sm text-gray-400">
+                                        Meta (Facebook) • 2022
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="font-semibold">
+                                        Professional Scrum Master I (PSM I)
+                                    </div>
+                                    <div class="text-sm text-gray-400">Scrum.org • 2021</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="mb-10 pb-10 border-b border-gray-700 print-break-avoid">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-project-diagram text-blue-400 mr-3"></i>
+                        Key Projects
+                    </h3>
+                    <div class="space-y-6 pl-6">
+                        <div>
+                            <h4 class="font-semibold">AI-Powered Chatbot Integration</h4>
+                            <div class="text-gray-400 mb-2">OPF Consulting • 2023</div>
+                            <p class="text-gray-300">
+                                Developed a sophisticated ChatGPT-based conversation system
+                                featuring advanced AI capabilities, custom workflows, and
+                                seamless integration with client systems. Reduced customer
+                                support response times by 68%.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Enterprise Backend System</h4>
+                            <div class="text-gray-400 mb-2">OPF Consulting • 2023</div>
+                            <p class="text-gray-300">
+                                Built a scalable backend infrastructure with Laravel,
+                                featuring Redis caching, queue management, and comprehensive
+                                API endpoints. Improved application performance by 42% and
+                                reduced server load.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Lifestyle Mobile Application</h4>
+                            <div class="text-gray-400 mb-2">Prudential • 2022-2023</div>
+                            <p class="text-gray-300">
+                                Developed a React Native app providing location-based
+                                services, real-time streaming, and community features with
+                                cross-platform compatibility. Attracted 50,000+ users within
+                                three months of launch.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="print-break-avoid">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-language text-blue-400 mr-3"></i>
+                        Languages
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pl-6">
+                        <div>
+                            <div class="font-semibold text-gray-300">English</div>
+                            <div class="text-gray-400">Professional</div>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-300">Chinese</div>
+                            <div class="text-gray-400">Native</div>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-300">Japanese</div>
+                            <div class="text-gray-400">Intermediate</div>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-300">French</div>
+                            <div class="text-gray-400">Basic</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Programming Languages -->
+                <div class="appear skill-wrapper">
+                    <h3 class="text-xl font-semibold mb-8 flex items-center">
+                        <i class="fas fa-code text-blue-500 mr-3"></i>
+                        Programming Languages
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>JavaScript/TypeScript</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>PHP</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Python</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Go</span>
+                                <span class="skill-percent">65%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend Technologies -->
+                <div class="appear skill-wrapper" style="animation-delay: 0.2s">
+                    <h3 class="text-xl font-semibold mb-8 flex items-center">
+                        <i class="fas fa-laptop-code text-blue-500 mr-3"></i>
+                        Frontend Technologies
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>React/React Native</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Vue.js</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Tailwind/CSS</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>JavaScript Animation</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Technologies -->
+                <div class="appear skill-wrapper">
+                    <h3 class="text-xl font-semibold mb-8 flex items-center">
+                        <i class="fas fa-server text-blue-500 mr-3"></i>
+                        Backend Technologies
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Node.js</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Laravel</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>REST/GraphQL APIs</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Microservices</span>
+                                <span class="skill-percent">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database & DevOps -->
+                <div class="appear skill-wrapper" style="animation-delay: 0.2s">
+                    <h3 class="text-xl font-semibold mb-8 flex items-center">
+                        <i class="fas fa-database text-blue-500 mr-3"></i>
+                        Database & DevOps
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>MySQL/PostgreSQL</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>MongoDB/Redis</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Docker/Kubernetes</span>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>CI/CD</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-6 bg-gradient-to-b from-gray-900 to-black no-print">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-6">Interested in Working Together?</h2>
+            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+                I'm always open to discussing new projects, creative ideas, or
+                opportunities to be part of your vision.
+            </p>
+            <a href="contact.html"
+                class="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow-lg hover:shadow-xl hover-lift">
+                Let's Connect
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 px-6 border-t border-gray-800 no-print">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="mb-8 md:mb-0">
+                    <div class="text-2xl font-bold mb-4">
+                        <span class="text-blue-500">[</span>Ben_Chen<span class="text-blue-500">]</span>
+                    </div>
+                    <p class="text-gray-400 max-w-md">
+                        Full-Stack Developer specializing in web application development
+                        with a focus on quality and user experience.
+                    </p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://github.com/ffzz" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ben-fz-chen/" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:cfangzheng@gmail.com"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-500 mb-4 md:mb-0">
+                    &copy; 2023 Fangzheng (Ben) Chen. All rights reserved.
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-400 hover:text-blue-500 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-400 hover:text-blue-500 transition-colors">About</a>
+                    <a href="projects.html" class="text-gray-400 hover:text-blue-500 transition-colors">Projects</a>
+                    <a href="blog.html" class="text-gray-400 hover:text-blue-500 transition-colors">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById("theme-toggle");
+        const icon = themeToggle.querySelector("i");
+        const body = document.body;
+        const navbar = document.getElementById("navbar");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        // Check system preference or saved preference
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                return savedTheme;
+            }
+            return window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+        }
+
+        // Apply theme
+        function applyTheme(theme) {
+            if (theme === "dark") {
+                body.classList.add("dark");
+                body.classList.remove("light");
+                navbar.classList.add("navbar-dark");
+                navbar.classList.remove("navbar-light");
+                mobileMenu.classList.add("navbar-dark");
+                mobileMenu.classList.remove("navbar-light");
+                icon.classList.add("fa-moon");
+                icon.classList.remove("fa-sun");
+            } else {
+                body.classList.add("light");
+                body.classList.remove("dark");
+                navbar.classList.add("navbar-light");
+                navbar.classList.remove("navbar-dark");
+                mobileMenu.classList.add("navbar-light");
+                mobileMenu.classList.remove("navbar-dark");
+                icon.classList.add("fa-sun");
+                icon.classList.remove("fa-moon");
+            }
+            localStorage.setItem("theme", theme);
+        }
+
+        // Initialize theme
+        applyTheme(getPreferredTheme());
+
+        // Theme toggle click event
+        themeToggle.addEventListener("click", () => {
+            const currentTheme = body.classList.contains("dark") ? "dark" : "light";
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            applyTheme(newTheme);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+
+        mobileMenuButton.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        // Initialize skill bars
+        document.addEventListener("DOMContentLoaded", function () {
+            const progressBars = document.querySelectorAll(".skill-progress");
+
+            // Set a small delay to ensure smooth animation
+            setTimeout(() => {
+                progressBars.forEach((bar) => {
+                    const width = bar.style.width;
+                    bar.style.width = "0";
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 300);
+        });
+
+        // Print Resume
+        document.getElementById("print-resume").addEventListener("click", () => {
+            window.print();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Blog | Fangzheng (Ben) Chen - Full-Stack Developer</title>
+    <meta name="description"
+        content="Browse Full-Stack Developer Fangzheng (Ben) Chen's technical blog for in-depth insights and practical guides on React, Laravel, performance optimisation and AI integration.">
+    <meta name="keywords"
+        content="Technical Blog, Web Development, React, Laravel, Performance Optimisation, AI Integration, Development Tips, Canberra Developer">
+    <meta name="author" content="Fangzheng (Ben) Chen">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Technical Blog | Fangzheng (Ben) Chen">
+    <meta property="og:description"
+        content="Browse Full-Stack Developer Fangzheng (Ben) Chen's technical blog for in-depth insights and practical guides on web development.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.benchen.dev/blog.html">
+    <meta property="og:image" content="https://www.benchen.dev/images/blog-preview.jpg">
+    <link rel="canonical" href="https://www.benchen.dev/blog.html">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0f0f0f;
+            --secondary-dark: #1a1a1a;
+            --text-dark: #f5f5f5;
+            --accent-dark: #3b82f6;
+            --primary-light: #f5f5f5;
+            --secondary-light: #e5e5e5;
+            --text-light: #171717;
+            --accent-light: #2563eb;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark {
+            background-color: var(--primary-dark);
+            color: var(--text-dark);
+        }
+
+        .light {
+            background-color: var(--primary-light);
+            color: var(--text-light);
+        }
+
+        .navbar-dark {
+            background-color: var(--secondary-dark);
+        }
+
+        .navbar-light {
+            background-color: var(--secondary-light);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .blog-card {
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .tag {
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            transform: scale(1.05);
+        }
+
+        .filter-active {
+            background-color: var(--accent-dark);
+            color: white;
+        }
+
+        .code-block {
+            background-color: #1a202c;
+            border-radius: 4px;
+            padding: 1rem;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            padding: 1.5rem;
+            color: #e2e8f0;
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+
+        .light .code-block {
+            background-color: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+        }
+
+        .light .code-block pre {
+            color: #334155;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent-dark);
+            padding-left: 1rem;
+            font-style: italic;
+            margin: 1.5rem 0;
+        }
+
+        .light blockquote {
+            background-color: rgba(241, 245, 249, 0.5);
+            color: #334155;
+        }
+
+        /* Light mode styles */
+        .light .bg-gray-800,
+        .light .bg-gray-900 {
+            background-color: var(--secondary-light);
+            color: var(--text-light);
+        }
+
+        .light .border-gray-700,
+        .light .border-gray-800 {
+            border-color: #d1d5db;
+        }
+
+        .light .text-gray-300,
+        .light .text-gray-400,
+        .light .text-gray-500 {
+            color: #374151;
+        }
+
+        .light .from-gray-900,
+        .light .to-black {
+            background-color: #e5e7eb;
+        }
+
+        .light .bg-gradient-to-r,
+        .light .bg-gradient-to-b {
+            background-image: linear-gradient(to right, #e5e7eb, #f3f4f6);
+        }
+
+        .light .hover\:bg-gray-800:hover {
+            background-color: #f3f4f6;
+        }
+
+        .light .hover\:bg-gray-700:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Light mode styles for footer */
+        .light .bg-black {
+            background-color: #f8fafc;
+        }
+
+        .light .hover\:text-white:hover {
+            color: #1e3a8a;
+        }
+
+        .light footer {
+            border-color: #e2e8f0;
+        }
+
+        .light footer .border-t {
+            border-color: #e2e8f0;
+        }
+
+        /* Mobile optimizations for blog page */
+        @media (max-width: 640px) {
+            .blog-title {
+                font-size: 1.75rem;
+            }
+
+            .blog-content {
+                padding: 1rem;
+            }
+
+            .blog-card {
+                padding: 1rem;
+            }
+
+            /* Fix horizontal text display issues on mobile */
+            .blog-card h2,
+            .blog-card h3,
+            .blog-card p,
+            .blog-excerpt,
+            .blog-content p,
+            .blog-content h3,
+            .blog-content pre,
+            .code-block,
+            .code-block pre code,
+            .featured-article h2,
+            .featured-article p {
+                width: 100%;
+                max-width: 100%;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                word-break: break-word;
+                hyphens: auto;
+                font-size: 95%;
+            }
+
+            /* Ensure code block content is visible on mobile */
+            .code-block {
+                overflow-x: auto;
+                white-space: pre-wrap;
+            }
+
+            /* Adjust filter tags */
+            .filter-tags {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+
+            .tag {
+                margin-bottom: 0.5rem;
+                font-size: 0.7rem;
+                padding: 0.15rem 0.4rem;
+            }
+
+            /* Reduce text spacing to fit small screens */
+            .blog-card .text-gray-400,
+            .blog-card .text-sm {
+                font-size: 0.75rem;
+                line-height: 1.2;
+            }
+
+            /* Fix any potential overflow issues */
+            .blog-card img,
+            .featured-article img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav id="navbar"
+        class="navbar-dark sticky top-0 z-50 py-4 px-6 border-b border-gray-800 backdrop-filter backdrop-blur-lg bg-opacity-80">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">
+                <span class="text-blue-500">[</span>Ben_Chen<span class="text-blue-500">]</span>
+            </a>
+            <div class="flex items-center space-x-1 md:space-x-6">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="hover:text-blue-500 transition-colors">Home</a>
+                    <a href="about.html" class="hover:text-blue-500 transition-colors">About</a>
+                    <a href="projects.html" class="hover:text-blue-500 transition-colors">Projects</a>
+                    <a href="blog.html"
+                        class="hover:text-blue-500 transition-colors border-b-2 border-blue-500">Blog</a>
+                    <a href="resume.html" class="hover:text-blue-500 transition-colors">Resume</a>
+                    <a href="contact.html" class="hover:text-blue-500 transition-colors">Contact</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="navbar-dark hidden md:hidden w-full mt-4 pb-4 px-6">
+            <div class="flex flex-col space-y-4">
+                <a href="index.html" class="hover:text-blue-500 transition-colors pl-2">Home</a>
+                <a href="about.html" class="hover:text-blue-500 transition-colors pl-2">About</a>
+                <a href="projects.html" class="hover:text-blue-500 transition-colors pl-2">Projects</a>
+                <a href="blog.html"
+                    class="hover:text-blue-500 transition-colors border-l-4 border-blue-500 pl-2">Blog</a>
+                <a href="resume.html" class="hover:text-blue-500 transition-colors pl-2">Resume</a>
+                <a href="contact.html" class="hover:text-blue-500 transition-colors pl-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="py-20 px-6 bg-gradient-to-r from-gray-900 to-black text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold mb-4">Tech Insights & Development Tips</h1>
+            <div class="w-24 h-1 bg-blue-500 mx-auto mb-8"></div>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto">Sharing knowledge, experiences, and best practices from
+                my journey as a Full-Stack Developer.</p>
+        </div>
+    </header>
+
+    <!-- Blog Filters -->
+    <section class="py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="tag bg-gray-800 text-white filter-active" data-filter="all">All Topics</button>
+                <button class="tag bg-gray-800 text-white" data-filter="react">React</button>
+                <button class="tag bg-gray-800 text-white" data-filter="laravel">Laravel</button>
+                <button class="tag bg-gray-800 text-white" data-filter="ai">AI & ML</button>
+                <button class="tag bg-gray-800 text-white" data-filter="performance">Performance</button>
+                <button class="tag bg-gray-800 text-white" data-filter="career">Career Growth</button>
+            </div>
+
+            <!-- Blog Layout -->
+            <div class="grid md:grid-cols-12 gap-8">
+                <!-- Blog Posts -->
+                <div class="md:col-span-8 space-y-8" id="blog-content">
+                    <!-- Featured Article -->
+                    <article
+                        class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden fade-in featured-article"
+                        id="article-1">
+                        <img src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?auto=format&fit=crop&q=80&w=1470"
+                            alt="React Performance Optimization" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="tag bg-blue-900 text-blue-300">React</span>
+                                <span class="tag bg-purple-900 text-purple-300">Performance</span>
+                            </div>
+                            <h2 class="text-2xl font-bold mb-2">Optimizing React Performance with Memoization</h2>
+                            <div class="text-sm text-gray-400 mb-4">April 15, 2023 • 8 min read</div>
+
+                            <p class="text-gray-300 mb-4">
+                                Performance optimization is a critical aspect of building React applications that
+                                provide a smooth user experience. One of the most powerful techniques in a React
+                                developer's toolkit is memoization.
+                            </p>
+
+                            <p class="text-gray-300 mb-4">
+                                Memoization is a programming technique that stores the results of expensive function
+                                calls and returns the cached result when the same inputs occur again. In React, this can
+                                significantly improve rendering performance.
+                            </p>
+
+                            <h3 class="text-xl font-semibold mt-8 mb-4">Using React.memo for Component Optimization</h3>
+
+                            <p class="text-gray-300 mb-4">
+                                <code>React.memo</code> is a higher-order component that memoizes the result of a
+                                component render. It prevents unnecessary re-renders by performing a shallow comparison
+                                of props:
+                            </p>
+
+                            <div class="code-block mb-6">
+                                <pre><code>import React from 'react';
+
+const MyComponent = (props) => {
+  /* Component logic */
+  return (
+    &lt;div&gt;
+      {/* Component JSX */}
+    &lt;/div&gt;
+  );
+};
+
+// Wrap with React.memo to memoize the component
+export default React.memo(MyComponent);</code></pre>
+                            </div>
+
+                            <p class="text-gray-300 mb-4">
+                                This simple addition can drastically reduce re-renders, especially for components that
+                                receive the same props frequently or are part of a large list.
+                            </p>
+
+                            <h3 class="text-xl font-semibold mt-8 mb-4">Optimizing with useMemo and useCallback</h3>
+
+                            <p class="text-gray-300 mb-4">
+                                For expensive calculations within components, <code>useMemo</code> can cache the results
+                                based on dependencies:
+                            </p>
+
+                            <div class="code-block mb-6">
+                                <pre><code>import React, { useMemo } from 'react';
+
+function MyComponent({ data }) {
+  // This calculation will only run when data changes
+  const processedData = useMemo(() => {
+    return expensiveCalculation(data);
+  }, [data]);
+
+  return (
+    &lt;div&gt;
+      {/* Use processedData in rendering */}
+    &lt;/div&gt;
+  );
+}</code></pre>
+                            </div>
+
+                            <p class="text-gray-300 mb-4">
+                                Similarly, <code>useCallback</code> memoizes functions, preventing them from being
+                                recreated on each render:
+                            </p>
+
+                            <div class="code-block mb-6">
+                                <pre><code>import React, { useCallback } from 'react';
+
+function ParentComponent() {
+  const handleClick = useCallback(() => {
+    // Event handler logic
+  }, []); // Empty dependency array means this function is created once
+
+  return &lt;ChildComponent onClick={handleClick} /&gt;;
+}</code></pre>
+                            </div>
+
+                            <blockquote class="text-gray-300">
+                                Remember that memoization itself has a cost. Only apply these techniques where they
+                                provide measurable benefits to your application's performance.
+                            </blockquote>
+
+                            <h3 class="text-xl font-semibold mt-8 mb-4">Real-world Performance Improvements</h3>
+
+                            <p class="text-gray-300 mb-4">
+                                In a recent project, I implemented these techniques in a dashboard application that was
+                                experiencing lag when displaying large data sets. The results were impressive:
+                            </p>
+
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 mb-6 pl-4">
+                                <li>Initial render time reduced by 42%</li>
+                                <li>Update renders improved by 65%</li>
+                                <li>Smooth scrolling through 1000+ list items</li>
+                                <li>Eliminated jank during filter operations</li>
+                            </ul>
+
+                            <p class="text-gray-300 mb-6">
+                                The key was strategically applying memoization at the right level of the component tree
+                                to prevent cascading re-renders.
+                            </p>
+
+                            <h3 class="text-xl font-semibold mt-8 mb-4">Conclusion</h3>
+
+                            <p class="text-gray-300 mb-6">
+                                While memoization is powerful, it's important to use it judiciously. Always measure
+                                performance before and after to ensure you're actually seeing benefits. Start by
+                                optimizing the components that render frequently or process large amounts of data.
+                            </p>
+
+                            <p class="text-gray-300">
+                                In the next article, we'll explore advanced React patterns that can further enhance your
+                                application's performance and maintainability.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Article List -->
+                    <div class="grid md:grid-cols-2 gap-6" id="article-list">
+                        <!-- Article 2 -->
+                        <div class="blog-card border border-gray-800 rounded-lg overflow-hidden fade-in"
+                            data-category="laravel,performance" style="animation-delay: 0.2s;">
+                            <div class="p-6">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag bg-red-900 text-red-300">Laravel</span>
+                                    <span class="tag bg-purple-900 text-purple-300">Performance</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Building Scalable Backend Systems with Laravel</h3>
+                                <div class="text-sm text-gray-400 mb-4">March 28, 2023 • 10 min read</div>
+                                <p class="text-gray-400 mb-4">Explore architecturing large-scale applications with
+                                    Laravel, focusing on best practices for maintainability, performance optimization,
+                                    and efficient database design...</p>
+                                <a href="#"
+                                    class="text-blue-500 hover:text-blue-400 transition-colors flex items-center"
+                                    onclick="showArticle('article-2')">
+                                    Read Article
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Article 3 -->
+                        <div class="blog-card border border-gray-800 rounded-lg overflow-hidden fade-in"
+                            data-category="ai" style="animation-delay: 0.3s;">
+                            <div class="p-6">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag bg-green-900 text-green-300">AI</span>
+                                    <span class="tag bg-yellow-900 text-yellow-300">Development</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Integrating ChatGPT into Modern Web Applications</h3>
+                                <div class="text-sm text-gray-400 mb-4">February 15, 2023 • 7 min read</div>
+                                <p class="text-gray-400 mb-4">A practical guide to incorporating AI-powered chat
+                                    functionality with OpenAI's ChatGPT API, including implementation strategies and
+                                    best practices...</p>
+                                <a href="#"
+                                    class="text-blue-500 hover:text-blue-400 transition-colors flex items-center"
+                                    onclick="showArticle('article-3')">
+                                    Read Article
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Article 4 -->
+                        <div class="blog-card border border-gray-800 rounded-lg overflow-hidden fade-in"
+                            data-category="react" style="animation-delay: 0.4s;">
+                            <div class="p-6">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag bg-blue-900 text-blue-300">React</span>
+                                    <span class="tag bg-indigo-900 text-indigo-300">State Management</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Modern State Management in React: Beyond Redux</h3>
+                                <div class="text-sm text-gray-400 mb-4">January 10, 2023 • 9 min read</div>
+                                <p class="text-gray-400 mb-4">Comparing modern state management solutions including
+                                    Context API, React Query, Zustand, and Recoil, with practical examples for each
+                                    approach...</p>
+                                <a href="#"
+                                    class="text-blue-500 hover:text-blue-400 transition-colors flex items-center"
+                                    onclick="showArticle('article-4')">
+                                    Read Article
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Article 5 -->
+                        <div class="blog-card border border-gray-800 rounded-lg overflow-hidden fade-in"
+                            data-category="career" style="animation-delay: 0.5s;">
+                            <div class="p-6">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag bg-pink-900 text-pink-300">Career Growth</span>
+                                    <span class="tag bg-gray-700 text-gray-300">Development</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Transitioning from Developer to Tech Lead: Lessons
+                                    Learned</h3>
+                                <div class="text-sm text-gray-400 mb-4">December 5, 2022 • 6 min read</div>
+                                <p class="text-gray-400 mb-4">Insights and practical advice for developers making the
+                                    leap to technical leadership, covering both technical and soft skills essential for
+                                    success...</p>
+                                <a href="#"
+                                    class="text-blue-500 hover:text-blue-400 transition-colors flex items-center"
+                                    onclick="showArticle('article-5')">
+                                    Read Article
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12">
+                        <nav class="inline-flex rounded-md shadow">
+                            <a href="#"
+                                class="py-2 px-4 border border-gray-800 rounded-l-md hover:bg-gray-800 transition-colors">
+                                Previous
+                            </a>
+                            <a href="#" class="py-2 px-4 border-t border-b border-gray-800 bg-gray-800 text-white">
+                                1
+                            </a>
+                            <a href="#"
+                                class="py-2 px-4 border-t border-b border-gray-800 hover:bg-gray-800 transition-colors">
+                                2
+                            </a>
+                            <a href="#"
+                                class="py-2 px-4 border-t border-b border-gray-800 hover:bg-gray-800 transition-colors">
+                                3
+                            </a>
+                            <a href="#"
+                                class="py-2 px-4 border border-gray-800 rounded-r-md hover:bg-gray-800 transition-colors">
+                                Next
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="md:col-span-4 space-y-8">
+                    <!-- About Author -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 fade-in"
+                        style="animation-delay: 0.2s;">
+                        <h3 class="text-xl font-bold mb-4">About the Author</h3>
+                        <div class="flex items-center mb-4">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000"
+                                alt="Ben Chen" class="w-16 h-16 rounded-full object-cover mr-4">
+                            <div>
+                                <div class="font-bold">Fangzheng (Ben) Chen</div>
+                                <div class="text-gray-400">Full-Stack Developer</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 mb-4">
+                            I write about web development, performance optimization, and career growth in tech. Follow
+                            along for practical insights from my experience.
+                        </p>
+                        <a href="about.html"
+                            class="text-blue-500 hover:text-blue-400 transition-colors flex items-center">
+                            More About Me
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+
+                    <!-- Popular Topics -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 fade-in"
+                        style="animation-delay: 0.3s;">
+                        <h3 class="text-xl font-bold mb-4">Popular Topics</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="tag bg-blue-900 text-blue-300 hover:bg-blue-800 transition-colors"
+                                onclick="filterArticles('react')">React</a>
+                            <a href="#" class="tag bg-red-900 text-red-300 hover:bg-red-800 transition-colors"
+                                onclick="filterArticles('laravel')">Laravel</a>
+                            <a href="#" class="tag bg-green-900 text-green-300 hover:bg-green-800 transition-colors"
+                                onclick="filterArticles('ai')">AI & ML</a>
+                            <a href="#" class="tag bg-purple-900 text-purple-300 hover:bg-purple-800 transition-colors"
+                                onclick="filterArticles('performance')">Performance</a>
+                            <a href="#"
+                                class="tag bg-yellow-900 text-yellow-300 hover:bg-yellow-800 transition-colors">JavaScript</a>
+                            <a href="#" class="tag bg-pink-900 text-pink-300 hover:bg-pink-800 transition-colors"
+                                onclick="filterArticles('career')">Career Growth</a>
+                            <a href="#"
+                                class="tag bg-indigo-900 text-indigo-300 hover:bg-indigo-800 transition-colors">TypeScript</a>
+                            <a href="#"
+                                class="tag bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors">DevOps</a>
+                        </div>
+                    </div>
+
+                    <!-- Recent Posts -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 fade-in"
+                        style="animation-delay: 0.4s;">
+                        <h3 class="text-xl font-bold mb-4">Recent Posts</h3>
+                        <div class="space-y-4">
+                            <a href="#" class="block hover:bg-gray-700 p-3 rounded transition-colors"
+                                onclick="showArticle('article-1')">
+                                <h4 class="font-semibold">Optimizing React Performance with Memoization</h4>
+                                <div class="text-sm text-gray-400">April 15, 2023</div>
+                            </a>
+                            <a href="#" class="block hover:bg-gray-700 p-3 rounded transition-colors"
+                                onclick="showArticle('article-2')">
+                                <h4 class="font-semibold">Building Scalable Backend Systems with Laravel</h4>
+                                <div class="text-sm text-gray-400">March 28, 2023</div>
+                            </a>
+                            <a href="#" class="block hover:bg-gray-700 p-3 rounded transition-colors"
+                                onclick="showArticle('article-3')">
+                                <h4 class="font-semibold">Integrating ChatGPT into Modern Web Applications</h4>
+                                <div class="text-sm text-gray-400">February 15, 2023</div>
+                            </a>
+                            <a href="#" class="block hover:bg-gray-700 p-3 rounded transition-colors"
+                                onclick="showArticle('article-4')">
+                                <h4 class="font-semibold">Modern State Management in React: Beyond Redux</h4>
+                                <div class="text-sm text-gray-400">January 10, 2023</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Signup -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 fade-in"
+                        style="animation-delay: 0.5s;">
+                        <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                        <p class="text-gray-300 mb-4">Subscribe for updates on new articles and tech insights.</p>
+                        <form class="space-y-4">
+                            <div>
+                                <input type="email" placeholder="Your email address"
+                                    class="w-full p-3 border border-gray-700 bg-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <button type="submit"
+                                class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-6 bg-gradient-to-b from-gray-900 to-black">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-6">Have a Tech Topic You'd Like Me to Cover?</h2>
+            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">I'm always looking for new topics to explore. Let me know
+                what you'd like to see in future articles.</p>
+            <a href="contact.html"
+                class="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow-lg hover:shadow-xl hover-lift">
+                Suggest a Topic
+                <i class="fas fa-paper-plane ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 px-6 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <div class="mb-8 md:mb-0">
+                    <div class="text-2xl font-bold mb-4">
+                        <span class="text-blue-500">[</span>Ben_Chen<span class="text-blue-500">]</span>
+                    </div>
+                    <p class="text-gray-400 max-w-md">Full-Stack Developer specializing in web application development
+                        with a focus on quality and user experience.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://github.com/ffzz" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ben-fz-chen/" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:cfangzheng@gmail.com"
+                        class="text-gray-400 hover:text-white transition-colors text-2xl">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-500 mb-4 md:mb-0">
+                    &copy; 2023 Fangzheng (Ben) Chen. All rights reserved.
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-400 hover:text-blue-500 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-400 hover:text-blue-500 transition-colors">About</a>
+                    <a href="projects.html" class="text-gray-400 hover:text-blue-500 transition-colors">Projects</a>
+                    <a href="blog.html" class="text-gray-400 hover:text-blue-500 transition-colors">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        const body = document.body;
+        const navbar = document.getElementById('navbar');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Check system preference or saved preference
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                return savedTheme;
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        // Apply theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark');
+                body.classList.remove('light');
+                navbar.classList.add('navbar-dark');
+                navbar.classList.remove('navbar-light');
+                mobileMenu.classList.add('navbar-dark');
+                mobileMenu.classList.remove('navbar-light');
+                icon.classList.add('fa-moon');
+                icon.classList.remove('fa-sun');
+            } else {
+                body.classList.add('light');
+                body.classList.remove('dark');
+                navbar.classList.add('navbar-light');
+                navbar.classList.remove('navbar-dark');
+                mobileMenu.classList.add('navbar-light');
+                mobileMenu.classList.remove('navbar-dark');
+                icon.classList.add('fa-sun');
+                icon.classList.remove('fa-moon');
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        // Initialize theme
+        applyTheme(getPreferredTheme());
+
+        // Theme toggle click event
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Blog Filtering
+        const filterButtons = document.querySelectorAll('[data-filter]');
+        const blogCards = document.querySelectorAll('.blog-card');
+
+        function filterArticles(category) {
+            // Update active filter button
+            filterButtons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('filter-active');
+                } else {
+                    btn.classList.remove('filter-active');
+                }
+            });
+
+            if (category === 'all') {
+                blogCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            } else {
+                blogCards.forEach(card => {
+                    const categories = card.getAttribute('data-category');
+                    if (categories && categories.includes(category)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filterValue = button.getAttribute('data-filter');
+                filterArticles(filterValue);
+            });
+        });
+
+        // Show/Hide Articles
+        function showArticle(articleId) {
+            // For a full implementation, you would load the article content and hide the list
+            // This is a simplified version for demonstration
+            const articleList = document.getElementById('article-list');
+            const blogContent = document.getElementById('blog-content');
+
+            const articles = document.querySelectorAll('[id^="article-"]');
+            articles.forEach(article => {
+                if (article.id === articleId) {
+                    article.style.display = 'block';
+                    // Scroll to article
+                    article.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+
+            // In a real implementation, you might hide the list and show a back button
+            // articleList.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

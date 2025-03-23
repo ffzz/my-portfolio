@@ -1,8 +1,6 @@
 {
-    "cSpell.words": [
-        "turbopack"
-    ],
-    "codingcopilot.modelDocumentLanguage": "English",
-    "codingcopilot.CommitMessageStyle": "Default",
-    "codingcopilot.commitMessageLanguage": "en"
+  "cSpell.words": ["Fangzheng", "Laravel", "turbopack"],
+  "codingcopilot.modelDocumentLanguage": "English",
+  "codingcopilot.CommitMessageStyle": "Default",
+  "codingcopilot.commitMessageLanguage": "en"
 }
